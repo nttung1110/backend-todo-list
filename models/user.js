@@ -3,10 +3,32 @@ class User extends Sequelize.Model { }
 
 exports.initModelUser = (sequelize) => {
   return User.init({
+    userID:{
+      type: Sequelize.STRING,
+      primaryKey: true  
+    },
     firstName: {
       type: Sequelize.STRING
     },
     lastName: {
+      type: Sequelize.STRING
+    },
+    userPhone:{
+      type: Sequelize.STRING
+    },
+    birthDay: {
+      type: Sequelize.DATE
+    },
+    avatarURL: {
+      type: Sequelize.STRING
+    },
+    updatedAt:{
+      type: Sequelize.DATE
+    },
+    status:{
+      type: Sequelize.STRING
+    },
+    userToken:{
       type: Sequelize.STRING
     }
   }, {

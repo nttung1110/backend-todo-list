@@ -4,7 +4,7 @@ module.exports={
     createBoard(req,res)
     {
         return Board.create({
-            boardId:req.body.boardId,
+            boardId:req.body.boardID,
             //adding
         })
         .then((board)=>res.status(201).send(board))
@@ -13,7 +13,7 @@ module.exports={
     },
     readBoard(req,res)
     {
-        return Board.findById(req.params.boardId,{
+        return Board.findById(req.params.boardID,{
 
         }).then((board)=>{
             if(!board){
@@ -27,7 +27,7 @@ module.exports={
     },
     updateBoard(req,res)
     {
-        return Board.findById(req.params.boardId,{
+        return Board.findById(req.params.boardID,{
 
         })
         .then(board=>{
@@ -38,7 +38,7 @@ module.exports={
             }
             return board.
             update({
-                boardId:req.body.boardId||board.boardId,
+                boardID:req.body.boardID||board.boardID,
                 //add here
             })
             .then(()=>res.status(200).send(board))
@@ -49,7 +49,7 @@ module.exports={
     deleteBoard(req,res)
     {
         return Board
-        .findById(req.params.boardId)
+        .findById(req.params.boardID)
         .then(board=>{
             if(!board){
                 return res.status(400).send({

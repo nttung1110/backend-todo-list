@@ -12,3 +12,13 @@ exports.initTaskRouters=(app)=>{
 exports.initBoardRouters=(app)=>{
     app.use("/",boardRouters());
 }
+
+//
+router.get('/test', function(req, res, next) {
+    sequelize.query("SELECT * FROM Example", { type:Sequelize.QueryTypes.SELECT})
+     .then(function(properties) {
+        console.log(properties);
+        res.json(properties);
+    })
+  });
+  

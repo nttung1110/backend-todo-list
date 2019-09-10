@@ -9,7 +9,7 @@ module.exports={
     },
     getProfileByID(req,res)
     {
-        return User.findByID(req.params.id,{
+        return User.findByID(req.params.userID,{
 
         }).then((user)=>{
             if(!user){

@@ -4,7 +4,7 @@ module.exports={
     createTask(req,res)
     {
         return Task.create({
-            taskId:req.body.taskId,
+            taskID:req.body.taskID,
             //adding
         })
         .then((task)=>res.status(201).send(task))
@@ -12,7 +12,7 @@ module.exports={
     },
     readTask(req,res)
     {
-        return Task.findByID(req.params.taskId,{
+        return Task.findByID(req.params.taskID,{
 
         }).then((task)=>{
             if(!task){
@@ -26,7 +26,7 @@ module.exports={
     },
     updateTask(req,res)
     {
-        return Task.findByID(req.params.taskId,{
+        return Task.findByID(req.params.taskID,{
 
         })
         .then(task=>{
@@ -37,7 +37,7 @@ module.exports={
                 });
             }
             return task.update({
-                taskId:req.body.taskId||task.taskId
+                taskID:req.body.taskID||task.taskID
                 //add here
             })
             .then(()=>res.status(200).send(task))
@@ -46,7 +46,7 @@ module.exports={
         .catch((error)=>res.status(400).send(error));
     },
     deleteTask(req,res){
-        return Task.findByID(req.params.taskId)
+        return Task.findByID(req.params.taskID)
         .then(task=>{
             if(!task){
                 return res.status(400).send({
