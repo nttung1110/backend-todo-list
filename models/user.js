@@ -11,9 +11,15 @@ exports.initModelUser = (sequelize) => {
     }
   }, {
     sequelize,
-    modelName: 'testuser',
+    modelName: 'user',
     timestamps: false,
     freezeTableName: true
   });
 }
 exports.User = User;
+exports.User.associate=function(models){
+  User.hasMany(models.Board, {
+    foreignKey: 'userID',
+    as: 'board',
+  });
+}

@@ -5,15 +5,18 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const { initDatabase } = require('./models');
-const { initRouters } = require('./routers');
+const { initUserRouters } = require('./routers');
+const {initBoardRouters}=require('./routers');
+const {initTaskRouters}=require('./routers');
 const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
 
 initDatabase();
-initRouters(app);
-
+initUserRouters(app);
+initBoardRouters(app);
+initTaskRouters(app);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
