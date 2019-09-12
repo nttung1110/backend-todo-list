@@ -60,6 +60,6 @@ status
 
 boardID
 
-+All of the above field is String datatype
++All of the above field is text datatype in postgres(text not text[])
 
 
