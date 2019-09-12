@@ -2,7 +2,7 @@ const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
 const dotenv = require('dotenv');
-//dotenv.config();
+dotenv.config();
 global.base_dir=__dirname;
 var bodyParser=require('body-parser');
 const { initDatabase } = require('../backend-todo-list/models');

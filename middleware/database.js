@@ -1,7 +1,9 @@
 const Sequelize = require('sequelize');
-const DB_USER="postgres"
+/*const DB_USER="postgres"
 const DB_NAME="todoList"
 const DB_PASSWORD="tung546012"
+*/
+const { DB_USER, DB_PASSWORD, DB_NAME } = process.env;
 let _sequelize;
 exports.initConnectionDatabase = async () => {
   console.log("user",DB_USER);

@@ -12,7 +12,7 @@ module.exports={
             createdAt:"",
             updatedAt:"",
             status:"",
-            boardID:req.body.boardID,            
+            boardID:req.params.boardID,            
             //adding
         })
         .then((task)=>res.status(201).send(task))
@@ -48,6 +48,7 @@ module.exports={
             return task.update({
                 taskID:req.body.taskID,
                 taskName:req.body.taskName,
+                status:req.body.status,
                 //add here
             })
             .then(()=>res.status(200).send(task))

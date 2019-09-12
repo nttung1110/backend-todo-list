@@ -14,8 +14,8 @@ module.exports={
             updatedBy:"",
             createdAt:"",
             updatedAt:"",
-            status:"",
-            userID:req.body.userID,
+            status:req.body.status,
+            userID:req.params.userID,
         })
         .then((board)=>{ res.status(201).send(board);})
         .catch((error)=>res.status(400).send(error.message));
@@ -53,7 +53,7 @@ module.exports={
             update({
                 boardID:board.boardID,
                 boardName:req.body.boardName,
-                status:board.status||req.body.status
+                status:req.body.status
                 //add here
             })
             .then(()=>res.status(200).send(board))
