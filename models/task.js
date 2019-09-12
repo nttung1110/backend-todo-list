@@ -2,9 +2,10 @@ const Sequelize=require('sequelize');
 class Task extends Sequelize.Model{  }
 const BoardModel=require('./board');
 exports.initModelTask=(sequelize)=>{
-    return Task.init({
-        taskID:{
-            type: Sequelize.STRING
+    const curTask= Task.init({
+          taskID:{
+            type: Sequelize.STRING,
+            primaryKey:true
           },
           taskName: {
             type: Sequelize.STRING
@@ -16,10 +17,10 @@ exports.initModelTask=(sequelize)=>{
             type: Sequelize.STRING
           },
           createdAt: {
-            type: Sequelize.DATE
+            type: Sequelize.STRING
           },
           updatedAt: {
-            type: Sequelize.DATE
+            type: Sequelize.STRING
           },
           status:{
             type: Sequelize.STRING
@@ -33,10 +34,11 @@ exports.initModelTask=(sequelize)=>{
         timestamps:false,
         freezeTableName:true
     });
-}
-Task.associate=function(models){
-    Task.belongsTo(models.Board,{
-        foreignKey:'boardID',
-    })
+    curTask.associate=function(models){
+      Task.belongsTo(models.Board,{
+          foreignKey:'boardID',
+      });
+  }
+  return curTask;
 }
 exports.Task=Task;

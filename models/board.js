@@ -1,9 +1,10 @@
 const Sequelize=require('sequelize');
 class Board extends Sequelize.Model{}
 exports.initModelBoard=(sequelize)=>{
-    return Board.init({
-        boardID:{
-            type: Sequelize.STRING
+    const curBoard=Board.init({
+          boardID:{
+            type: Sequelize.STRING,
+            primaryKey:true
           },
           boardName: {
             type: Sequelize.STRING
@@ -15,10 +16,10 @@ exports.initModelBoard=(sequelize)=>{
             type: Sequelize.STRING
           },
           createdAt: {
-            type: Sequelize.DATE
+            type: Sequelize.STRING
           },
           updatedAt: {
-            type: Sequelize.DATE
+            type: Sequelize.STRING
           },
           status:{
             type: Sequelize.STRING
@@ -32,13 +33,14 @@ exports.initModelBoard=(sequelize)=>{
         timestamps:false,
         freezeTableName:true
     });
-}
-Board.associate=function(models){
-    Board.belongsTo(models.User,{
-        foreignKey:'userID',
-    });
-    Board.hasMany(models.Task,{
-        foreignKey:'boardID',
-    })
+    curBoard.associate=function(models){
+      Board.belongsTo(models.User,{
+          foreignKey:'userID',
+      });
+      Board.hasMany(models.Task,{
+          foreignKey:'boardID',
+      });
+  }
+  return curBoard;
 }
 exports.Board=Board;

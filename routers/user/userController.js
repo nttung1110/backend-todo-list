@@ -1,5 +1,9 @@
 //user API getprofile,register,update
-const User=require('../models').User;
+const User=require(global.base_dir+'/models/user').User;
+const {initFirebaseConnection}=require(global.base_dir+'/middleware/firebase');
+const firebase=require("firebase/app");
+require("firebase/auth");
+require("firebase/firestore");
 module.exports={
     list(req,res){
         return User.findAll({
@@ -9,8 +13,10 @@ module.exports={
     },
     getProfileByID(req,res)
     {
-        return User.findByID(req.params.userID,{
-
+        console.log("userID",req.params.userID);
+        return User.findOne({
+            where:{userID:req.params.userID},
+            attribute:['userID','firstName','lastName','userPhone','birthDay','avatarURL']
         }).then((user)=>{
             if(!user){
                 return res.status(404).send({
@@ -24,11 +30,37 @@ module.exports={
     //findByPK
     register(req,res)
     {
-        return User.create({
-            userID:req.body.userID,
-        })
-        .then((user)=>res.status(201).send(user))
-        .catch((error)=>res.status(400).send(error));
+        if (!firebase.apps.length) {
+            initFirebaseConnection(firebase);
+        }
+        const email=req.body.email;
+        console.log("email",req.body.email);
+        var password=req.body.password;
+        var registerID;
+        firebase.auth().createUserWithEmailAndPassword(email,password)
+        .then(function(){
+            var curUser = firebase.auth().currentUser;
+            console.log("User:"+curUser.uid);
+            return User.create({
+                userID:curUser.uid,
+                email:curUser.email,
+                firstName:"",
+                lastName:"",
+                userPhone:"",
+                birthDay:"",
+                avatarURL:"",
+                updatedAt:"",
+                status:"",
+            })
+            .then((user)=>res.status(201).send(user))
+            .catch((error)=>res.status(400).send(error.message));
+        }).catch(function(error){
+            //res.end("OK register");
+            var errorCode=error.Code;
+            var errorMessage=error.message;
+            console.log('errorCodecreate',errorCode);
+            console.log('errorMessagecreate',errorMessage);
+        });
     },
     updateUserInfo(req,res)
     {

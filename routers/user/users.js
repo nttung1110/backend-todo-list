@@ -1,20 +1,14 @@
 //const { User } = require("../../models/user");
 const { Router } = require("express");
 const router = new Router();
-const userController=require("./userController").user;
-exports.userRouters=()=>{
-  router.get('/api/users',userController.list);
-  router.get('/api/users/:id',userController.getProfileByID);
-  router.post('/api/users',userController.register);
-  router.put('api/users/:id',userController.updateUserInfo);
+const userController=require("./userController");
+exports.userRouters=function(){
+  router.get('/api/user',userController.list);
+  router.get('/api/user/:userID',userController.getProfileByID);
+  router.post('/api/user',userController.register);
+  router.put('api/user/:userID',userController.updateUserInfo);
   return router;
 }
-
-
-
-
-
-
 /*
 exports.userRouters = () => {
   router.get("/users", list);

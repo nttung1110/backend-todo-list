@@ -1,10 +1,18 @@
 //API CRUD Task
-const Task=require('..models').Task;
+const Task=require(global.base_dir+'/models/task').Task;
 module.exports={
     createTask(req,res)
     {
+        //console.log("increating");
         return Task.create({
             taskID:req.body.taskID,
+            taskName:req.body.taskName,
+            createdBy:"",
+            updatedBy:"",
+            createdAt:"",
+            updatedAt:"",
+            status:"",
+            boardID:req.body.boardID,            
             //adding
         })
         .then((task)=>res.status(201).send(task))
@@ -12,8 +20,9 @@ module.exports={
     },
     readTask(req,res)
     {
-        return Task.findByID(req.params.taskID,{
-
+        return Task.findOne({
+            where:{taskID:req.params.taskID},
+            attributes:['taskID','taskName','status','boardID']
         }).then((task)=>{
             if(!task){
                 return res.status(404).send({
@@ -26,8 +35,8 @@ module.exports={
     },
     updateTask(req,res)
     {
-        return Task.findByID(req.params.taskID,{
-
+        return Task.findOne({
+            where:{taskID:req.body.taskID},
         })
         .then(task=>{
             if(!task)
@@ -37,7 +46,8 @@ module.exports={
                 });
             }
             return task.update({
-                taskID:req.body.taskID||task.taskID
+                taskID:req.body.taskID,
+                taskName:req.body.taskName,
                 //add here
             })
             .then(()=>res.status(200).send(task))
@@ -46,7 +56,9 @@ module.exports={
         .catch((error)=>res.status(400).send(error));
     },
     deleteTask(req,res){
-        return Task.findByID(req.params.taskID)
+        return Task.findOne({
+            where:{taskID:req.body.taskID},
+        })
         .then(task=>{
             if(!task){
                 return res.status(400).send({
@@ -59,5 +71,13 @@ module.exports={
             .catch((error)=>res.status(400).send(error));
         })
         .catch((error)=>res.status(400).send(error));
+    },
+    getListTaskByBoard(req,res)
+    {
+        console.log("here");
+        return Task.findAll({
+            where:{boardID:req.params.boardID},
+        }).then((tasks)=>res.status(200).send(tasks))
+        .catch((error)=>{res.status(400).send(error);});
     }
 }
