@@ -4,9 +4,10 @@ const Task=require(global.base_dir+'/models/task').Task;
 module.exports={
     createBoard(req,res)
     {
-        console.log("id:",req.body.boardID);
+        const uid=req.uid;
+        console.log("id:",uid);
         console.log("name:",req.body.boardName);
-        console.log("userid:",req.body.userID);
+        //console.log("userid:",req.body.userID);
         return Board.create({
             boardID:req.body.boardID,
             boardName:req.body.boardName,
@@ -15,7 +16,7 @@ module.exports={
             createdAt:"",
             updatedAt:"",
             status:req.body.status,
-            userID:req.params.userID,
+            userID:uid,
         })
         .then((board)=>{ res.status(201).send(board);})
         .catch((error)=>res.status(400).send(error.message));

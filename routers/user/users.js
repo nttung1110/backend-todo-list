@@ -3,10 +3,11 @@ const { Router } = require("express");
 const router = new Router();
 const userController=require("./userController");
 exports.userRouters=function(){
-  router.get('/api/user',userController.list);
-  router.get('/api/user/:userID',userController.getProfileByID);
+  console.log('run');
+  router.get('/api/user/list',userController.list);
+  router.get('/api/user',userController.getProfileByID);
   router.post('/api/user',userController.register);
-  router.put('api/user/:userID',userController.updateUserInfo);
+  //router.put('api/user',userController.updateUserInfo);
   return router;
 }
 /*

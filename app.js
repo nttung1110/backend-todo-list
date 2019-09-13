@@ -1,22 +1,34 @@
 const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
+const cors = require('cors');
 const dotenv = require('dotenv');
+const firebase=require("firebase/app");
+require("firebase/auth");
+require("firebase/firestore");
 dotenv.config();
 global.base_dir=__dirname;
 var bodyParser=require('body-parser');
+var headerParser = require('header-parser');
 const { initDatabase } = require('../backend-todo-list/models');
 const { initUserRouters } = require('../backend-todo-list/routers');
 const {initBoardRouters}=require('../backend-todo-list/routers');
 const {initTaskRouters}=require('../backend-todo-list/routers');
 const {initFirebaseConnection}=require('../backend-todo-list/middleware/firebase');
+const {initAdmin}=require('../backend-todo-list/middleware/firebase');
 const app = express();
+app.use(headerParser);
 app.use(logger('dev'));
+app.use(cors());
 app.use(express.json());
 //initFirebaseConnection();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 initDatabase();
+if (!firebase.apps.length) {
+  initFirebaseConnection(firebase);
+}
+initAdmin();
 initUserRouters(app);
 initBoardRouters(app);
 initTaskRouters(app);
@@ -35,5 +47,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   return res.json(err);
 });
-app.listen(3000);
+//app.listen(3000);
 module.exports = app;

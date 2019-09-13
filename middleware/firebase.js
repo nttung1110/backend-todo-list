@@ -1,3 +1,4 @@
+var admin=require('firebase-admin');
 exports.initFirebaseConnection=async(firebase)=>{
     try{
         var firebaseConfig={
@@ -24,3 +25,10 @@ exports.initFirebaseConnection=async(firebase)=>{
         throw error;
     }
 }
+exports.initAdmin=async()=>{
+    admin.initializeApp({
+        credential: admin.credential.applicationDefault(),
+        databaseURL: 'https://todolist-dev-3e715.firebaseio.com/'
+      });
+}
+exports.admin=admin;
