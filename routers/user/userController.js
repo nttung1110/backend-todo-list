@@ -49,7 +49,7 @@ module.exports={
         console.log('registerID',tokenID);
         admin.auth().verifyIdToken(tokenID).then(function(decodedToken){
             let uid=decodedToken.uid;
-            const email=req.headers.email;
+            const email=req.body.email;
             console.log("User:",uid);
             return User.create({
                 userID:uid,
