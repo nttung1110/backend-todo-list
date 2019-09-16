@@ -51,6 +51,8 @@ module.exports={
             let uid=decodedToken.uid;
             const email=req.body.email;
             console.log("User:",uid);
+            console.log("Email",email)
+            console.log("first name",req.body.firstName);
             return User.create({
                 userID:uid,
                 email:email,
@@ -65,32 +67,8 @@ module.exports={
             .then((user)=>res.status(201).send(user))
             .catch((error)=>res.status(400).send(error.message));
         }).catch(function(error){
-            res.send(error.message);
+            res.status(500).send(error.message);
         });
-        /*firebase.auth().createUserWithEmailAndPassword(email,password)
-        .then(function(){
-            var curUser = firebase.auth().currentUser;
-            console.log("User:"+curUser.uid);
-            return User.create({
-                userID:curUser.uid,
-                email:curUser.email,
-                firstName:"",
-                lastName:"",
-                userPhone:"",
-                birthDay:"",
-                avatarURL:"",
-                updatedAt:"",
-                status:"",
-            })
-            .then((user)=>res.status(201).send(user))
-            .catch((error)=>res.status(400).send(error.message));
-        }).catch(function(error){
-            //res.end("OK register");
-            var errorCode=error.Code;
-            var errorMessage=error.message;
-            console.log('errorCodecreate',errorCode);
-            console.log('errorMessagecreate',errorMessage);
-        });*/
     },
     updateUserInfo(req,res)
     {

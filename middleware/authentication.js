@@ -23,8 +23,8 @@ exports.verifyingAuthentication=(function(req,res,next){
                    message:'User does not exist',
                })
            }
+           req.body.uid=uid;
            next();
-           return res.status(200).send(uid);
        })
        .catch((error)=>res.status(400).send(error));
     })
