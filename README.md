@@ -38,8 +38,6 @@ createdAt
 
 updatedAt
 
-# Remember to change environment variables for firebase authentication .Link here https://firebase.google.com/docs/admin/setup/
-
 status
 
 userID
@@ -63,5 +61,7 @@ status
 boardID
 
 +All of the above field is text datatype in postgres(text not text[])
+
+# Remember to change environment variables for firebase authentication .Link here https://firebase.google.com/docs/admin/setup/
 
 
