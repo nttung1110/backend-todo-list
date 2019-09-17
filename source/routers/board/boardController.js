@@ -1,6 +1,6 @@
 //API CRUD Board
-const Board=require(global.base_dir+'/models/board').Board;
-const Task=require(global.base_dir+'/models/task').Task;
+const Board=require('../../models/board').Board;
+const Task=require('../../models/task').Task;
 module.exports={
     createBoard(req,res)
     {

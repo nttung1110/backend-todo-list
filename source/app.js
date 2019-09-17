@@ -1,25 +1,27 @@
 const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
-const cors = require('cors');
+import cors from "cors";
+import "@babel/polyfill";
 const dotenv = require('dotenv');
 const firebase=require("firebase/app");
 require("firebase/auth");
 require("firebase/firestore");
 dotenv.config();
-global.base_dir=__dirname;
 var bodyParser=require('body-parser');
 var headerParser = require('header-parser');
-const { initDatabase } = require('../backend-todo-list/models');
-const { initUserRouters } = require('../backend-todo-list/routers');
-const {initBoardRouters}=require('../backend-todo-list/routers');
-const {initTaskRouters}=require('../backend-todo-list/routers');
-const {initFirebaseConnection}=require('../backend-todo-list/middleware/firebase');
-const {initAdmin}=require('../backend-todo-list/middleware/firebase');
+const { initDatabase } = require('./models');
+const { initUserRouters } = require('./routers');
+const {initBoardRouters}=require('./routers');
+const {initTaskRouters}=require('./routers');
+const {initFirebaseConnection}=require('./middleware/firebase');
+const {initAdmin}=require('./middleware/firebase');
 const app = express();
 app.use(headerParser);
 app.use(logger('dev'));
-app.use(cors());
+app.use(cors({
+  path: process.env.NODE_ENV === "prod" ? '../.env' : null
+})); 
 app.use(express.json());
 //initFirebaseConnection();
 app.use(bodyParser.json());
@@ -47,5 +49,4 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   return res.json(err);
 });
-//app.listen(3000);
-module.exports = app;
+app.listen(3000);

@@ -1,5 +1,5 @@
 //API CRUD Task
-const Task=require(global.base_dir+'/models/task').Task;
+const Task=require('../../models/task').Task;
 module.exports={
     createTask(req,res)
     {

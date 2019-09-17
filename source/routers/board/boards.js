@@ -2,7 +2,7 @@ const {Router}=require("express");
 const router=new Router();
 const boardController=require('./boardController');
 const taskController=require('../task/taskController');
-const {verifyingAuthentication}=require(global.base_dir+'/middleware/authentication');
+const {verifyingAuthentication}=require('../../middleware/authentication');
 exports.boardRouters=(app)=>{
     router.get('/api/user/board/:boardID',verifyingAuthentication,boardController.readBoard);
     router.get('/api/user/board/:boardID/tasks',verifyingAuthentication,taskController.getListTaskByBoard);

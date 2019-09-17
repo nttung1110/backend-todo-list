@@ -1,5 +1,5 @@
 //user API getprofile,register,update
-const User=require(global.base_dir+'/models/user').User;
+const User=require('../../models/user').User;
 const firebase=require("firebase/app");
 require("firebase/auth");
 require("firebase/firestore");
@@ -49,7 +49,7 @@ module.exports={
         console.log('registerID',tokenID);
         admin.auth().verifyIdToken(tokenID).then(function(decodedToken){
             let uid=decodedToken.uid;
-            const email=req.body.email;
+            const email=decodedToken.email;
             console.log("User:",uid);
             console.log("Email",email)
             console.log("first name",req.body.firstName);
