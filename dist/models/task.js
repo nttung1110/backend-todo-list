@@ -1,30 +1,25 @@
-'use strict';
+"use strict";
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.initModelTask = exports.BoardModel = exports.Task = void 0;
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+const Sequelize = require('sequelize');
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+class Task extends Sequelize.Model {}
 
-var Sequelize = require('sequelize');
+exports.Task = Task;
 
-var Task = function (_Sequelize$Model) {
-  _inherits(Task, _Sequelize$Model);
+const BoardModel = require('./board');
 
-  function Task() {
-    _classCallCheck(this, Task);
+exports.BoardModel = BoardModel;
 
-    return _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).apply(this, arguments));
-  }
-
-  return Task;
-}(Sequelize.Model);
-
-var BoardModel = require('./board');
-exports.initModelTask = function (sequelize) {
-  var curTask = Task.init({
+const initModelTask = sequelize => {
+  const curTask = Task.init({
     taskID: {
-      type: Sequelize.STRING,
+      type: Sequelize.BIGINT,
+      autoIncrement: true,
       primaryKey: true
     },
     taskName: {
@@ -37,28 +32,31 @@ exports.initModelTask = function (sequelize) {
       type: Sequelize.STRING
     },
     createdAt: {
-      type: Sequelize.STRING
+      type: Sequelize.DATE
     },
     updatedAt: {
-      type: Sequelize.STRING
+      type: Sequelize.DATE
     },
     status: {
       type: Sequelize.STRING
     },
     boardID: {
-      type: Sequelize.STRING
+      type: Sequelize.BIGINT
     }
   }, {
-    sequelize: sequelize,
+    sequelize,
     modelName: 'task',
     timestamps: false,
     freezeTableName: true
   });
+
   curTask.associate = function (models) {
     Task.belongsTo(models.Board, {
       foreignKey: 'boardID'
     });
   };
+
   return curTask;
 };
-exports.Task = Task;
+
+exports.initModelTask = initModelTask;

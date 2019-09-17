@@ -4,15 +4,15 @@ module.exports={
     createTask(req,res)
     {
         //console.log("increating");
+        const boardID=req.params.boardID;
+        const curUser =req.body.user;
+        console.log("BoardID in creating Task",boardID);
         return Task.create({
-            taskID:req.body.taskID,
             taskName:req.body.taskName,
-            createdBy:"",
-            updatedBy:"",
-            createdAt:"",
-            updatedAt:"",
+            createdBy:curUser.firstName+curUser.lastName,
+            updatedBy:curUser.firstName+curUser.lastName,
             status:"",
-            boardID:req.params.boardID,            
+            boardID:boardID,            
             //adding
         })
         .then((task)=>res.status(201).send(task))
@@ -46,7 +46,6 @@ module.exports={
                 });
             }
             return task.update({
-                taskID:req.body.taskID,
                 taskName:req.body.taskName,
                 status:req.body.status,
                 //add here

@@ -1,10 +1,11 @@
 const Sequelize=require('sequelize');
-class Task extends Sequelize.Model{  }
-const BoardModel=require('./board');
-exports.initModelTask=(sequelize)=>{
+export class Task extends Sequelize.Model{  }
+export const BoardModel=require('./board');
+export const initModelTask=(sequelize)=>{
     const curTask= Task.init({
           taskID:{
-            type: Sequelize.STRING,
+            type: Sequelize.BIGINT,
+            autoIncrement: true,
             primaryKey:true
           },
           taskName: {
@@ -17,16 +18,16 @@ exports.initModelTask=(sequelize)=>{
             type: Sequelize.STRING
           },
           createdAt: {
-            type: Sequelize.STRING
+            type: Sequelize.DATE
           },
           updatedAt: {
-            type: Sequelize.STRING
+            type: Sequelize.DATE
           },
           status:{
             type: Sequelize.STRING
           },
           boardID:{
-            type: Sequelize.STRING
+            type: Sequelize.BIGINT
           }
     },{
         sequelize,
@@ -41,4 +42,3 @@ exports.initModelTask=(sequelize)=>{
   }
   return curTask;
 }
-exports.Task=Task;

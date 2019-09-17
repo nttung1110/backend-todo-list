@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start-source": "nodemon --exec babel-node ./source/app.js",
-    "start-dist": "node ./bin/www-prod",
+    "start-dist": "NODE_ENV=prod node ./dist/app.js",
     "start-prod": "NODE_ENV=prod node ./dist/app.js",
     "start-dev": "PORT=4000 node ./bin/www",
     "build": "rm -rf dist && babel source -d dist "

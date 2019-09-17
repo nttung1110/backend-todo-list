@@ -1,6 +1,7 @@
 //user API getprofile,register,update
 const User=require('../../models/user').User;
 const firebase=require("firebase/app");
+const Sequelize=require('sequelize');
 require("firebase/auth");
 require("firebase/firestore");
 var admin=require('firebase-admin');
@@ -9,16 +10,16 @@ module.exports={
         return User.findAll({
             
         }).then((users)=>res.status(200).send(users))
-        .catch((error)=>{res.status(400).send(error);});
+        .catch((error)=>{res.status(400).send(error.message);});
     },
     getProfileByID(req,res)
     {
         const tokenID=req.get('tokenID');
-        console.log("id",tokenID);
+        console.log("tokenID inside get Profile of User:",tokenID);
         admin.auth().verifyIdToken(tokenID)
         .then(function(decodedToken){
             let uid=decodedToken.uid;
-            console.log("idfirebase",tokenID);
+            console.log("Verify Successfully",tokenID);
             return User.findOne({
                 where:{userID:uid},
                 attribute:['userID','email','firstName','lastName','userPhone','birthDay','avatarURL']
@@ -39,17 +40,17 @@ module.exports={
     //findByPK
     register(req,res)
     {
-        console.log("run register");
         //const email=req.body.email;
         //console.log("email",req.body.email);
         //var password=req.body.password;
         var registerID;
         console.log(req.headers);
         const tokenID=req.get('tokenIDS')
-        console.log('registerID',tokenID);
+        console.log('registerID inside register new User:',tokenID);
         admin.auth().verifyIdToken(tokenID).then(function(decodedToken){
             let uid=decodedToken.uid;
             const email=decodedToken.email;
+            console.log("Verifying Successfully");
             console.log("User:",uid);
             console.log("Email",email)
             console.log("first name",req.body.firstName);
@@ -61,7 +62,6 @@ module.exports={
                 userPhone:req.body.userPhone,
                 birthDay:req.body.birthDay,
                 avatarURL:req.body.avatarURL,
-                updatedAt:"",
                 status:"",
             })
             .then((user)=>res.status(201).send(user))

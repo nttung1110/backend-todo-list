@@ -1,9 +1,10 @@
 const Sequelize=require('sequelize');
-class Board extends Sequelize.Model{}
-exports.initModelBoard=(sequelize)=>{
+export class Board extends Sequelize.Model{}
+export const initModelBoard=(sequelize)=>{
     const curBoard=Board.init({
           boardID:{
-            type: Sequelize.STRING,
+            type: Sequelize.BIGINT,
+            autoIncrement: true,
             primaryKey:true
           },
           boardName: {
@@ -12,16 +13,16 @@ exports.initModelBoard=(sequelize)=>{
           createdBy: {
             type: Sequelize.STRING
           },
-          updatedBy:{
-            type: Sequelize.STRING
-          },
           createdAt: {
+            type: Sequelize.DATE
+          },
+          status:{
             type: Sequelize.STRING
           },
           updatedAt: {
-            type: Sequelize.STRING
+            type: Sequelize.DATE
           },
-          status:{
+          updatedBy:{
             type: Sequelize.STRING
           },
           userID:{
@@ -43,4 +44,3 @@ exports.initModelBoard=(sequelize)=>{
   }
   return curBoard;
 }
-exports.Board=Board;

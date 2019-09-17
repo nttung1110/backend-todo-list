@@ -3,20 +3,17 @@ require("firebase/auth");
 require("firebase/firestore");
 
 var admin=require('firebase-admin');
-const {createBoard}=require("../routers/board/boardController");
-const {updateBoard}=require("../routers/board/boardController");
-const {createTask}=require("../routers/task/taskController");
 const User=require('../models/user').User;
-const {updateTask}=require("../routers/task/taskController");
 export function verifyingAuthentication(req,res,next){
     const tokenID=req.get("tokenID");
-    console.log("insidemiddleware",tokenID);
+    console.log("Inside Middleware Authentication",tokenID);
     admin.auth().verifyIdToken(tokenID)
     .then(function(decodedToken){
        let uid=decodedToken.uid;
        console.log("UID inside middleware",uid);
        return User.findOne({
            where:{userID:uid},
+           attribute:['userID','email','firstName','lastName','userPhone','birthDay','avatarURL']
        }).then((user)=>{
            if(!user)
            {
@@ -24,7 +21,7 @@ export function verifyingAuthentication(req,res,next){
                    message:'User does not exist',
                })
            }
-           req.body.uid=uid;
+           req.body.user=user.dataValues;
            next();
        })
        .catch((error)=>res.status(400).send(error));

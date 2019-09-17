@@ -1,29 +1,21 @@
-'use strict';
+"use strict";
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.initModelBoard = exports.Board = void 0;
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+const Sequelize = require('sequelize');
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+class Board extends Sequelize.Model {}
 
-var Sequelize = require('sequelize');
+exports.Board = Board;
 
-var Board = function (_Sequelize$Model) {
-  _inherits(Board, _Sequelize$Model);
-
-  function Board() {
-    _classCallCheck(this, Board);
-
-    return _possibleConstructorReturn(this, (Board.__proto__ || Object.getPrototypeOf(Board)).apply(this, arguments));
-  }
-
-  return Board;
-}(Sequelize.Model);
-
-exports.initModelBoard = function (sequelize) {
-  var curBoard = Board.init({
+const initModelBoard = sequelize => {
+  const curBoard = Board.init({
     boardID: {
-      type: Sequelize.STRING,
+      type: Sequelize.BIGINT,
+      autoIncrement: true,
       primaryKey: true
     },
     boardName: {
@@ -32,27 +24,28 @@ exports.initModelBoard = function (sequelize) {
     createdBy: {
       type: Sequelize.STRING
     },
-    updatedBy: {
-      type: Sequelize.STRING
-    },
     createdAt: {
+      type: Sequelize.DATE
+    },
+    status: {
       type: Sequelize.STRING
     },
     updatedAt: {
-      type: Sequelize.STRING
+      type: Sequelize.DATE
     },
-    status: {
+    updatedBy: {
       type: Sequelize.STRING
     },
     userID: {
       type: Sequelize.STRING
     }
   }, {
-    sequelize: sequelize,
+    sequelize,
     modelName: 'board',
     timestamps: false,
     freezeTableName: true
   });
+
   curBoard.associate = function (models) {
     Board.belongsTo(models.User, {
       foreignKey: 'userID'
@@ -61,6 +54,8 @@ exports.initModelBoard = function (sequelize) {
       foreignKey: 'boardID'
     });
   };
+
   return curBoard;
 };
-exports.Board = Board;
+
+exports.initModelBoard = initModelBoard;

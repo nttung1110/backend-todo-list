@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
-class User extends Sequelize.Model { }
-exports.initModelUser = (sequelize) => {
+export class User extends Sequelize.Model { }
+export const initModelUser = (sequelize) => {
   const curUser= User.init({
     userID:{
       type: Sequelize.STRING,
@@ -25,7 +25,7 @@ exports.initModelUser = (sequelize) => {
       type: Sequelize.STRING
     },
     updatedAt:{
-      type: Sequelize.STRING 
+      type: Sequelize.DATE
     },
     status:{
       type: Sequelize.STRING
@@ -47,4 +47,3 @@ exports.initModelUser = (sequelize) => {
   */
 }
 //sequelize.models.user;
-exports.User = User;

@@ -4,6 +4,7 @@ const boardController=require('./boardController');
 const taskController=require('../task/taskController');
 const {verifyingAuthentication}=require('../../middleware/authentication');
 exports.boardRouters=(app)=>{
+    router.get('/api/user/boards',verifyingAuthentication,boardController.listBoardByUser);
     router.get('/api/user/board/:boardID',verifyingAuthentication,boardController.readBoard);
     router.get('/api/user/board/:boardID/tasks',verifyingAuthentication,taskController.getListTaskByBoard);
     router.post('/api/user/board',verifyingAuthentication,boardController.createBoard);

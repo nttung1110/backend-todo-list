@@ -1,27 +1,32 @@
 "use strict";
 
 var express = require('express');
+
 var router = express.Router();
 
-var _require = require("./user/users"),
-    userRouters = _require.userRouters;
+const {
+  userRouters
+} = require("./user/users");
 
-var _require2 = require("./task/tasks"),
-    taskRouters = _require2.taskRouters;
+const {
+  taskRouters
+} = require("./task/tasks");
 
-var _require3 = require("./board/boards"),
-    boardRouters = _require3.boardRouters;
+const {
+  boardRouters
+} = require("./board/boards");
 
-exports.initUserRouters = function (app) {
-    app.use("/", userRouters());
-};
-exports.initTaskRouters = function (app) {
-    app.use("/", taskRouters());
-};
-exports.initBoardRouters = function (app) {
-    app.use("/", boardRouters());
+exports.initUserRouters = app => {
+  app.use("/", userRouters());
 };
 
+exports.initTaskRouters = app => {
+  app.use("/", taskRouters());
+};
+
+exports.initBoardRouters = app => {
+  app.use("/", boardRouters());
+};
 /*
 router.get('/test', function(req, res, next) {
     sequelize.query("SELECT * FROM Example", { type:Sequelize.QueryTypes.SELECT})

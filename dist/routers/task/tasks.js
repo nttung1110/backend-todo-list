@@ -1,18 +1,21 @@
 "use strict";
 
-var _require = require("express"),
-    Router = _require.Router;
+const {
+  Router
+} = require("express");
 
-var router = new Router();
-var taskController = require("./taskController");
+const router = new Router();
 
-var _require2 = require('../../middleware/authentication'),
-    verifyingAuthentication = _require2.verifyingAuthentication;
+const taskController = require("./taskController");
 
-exports.taskRouters = function () {
-    router.get('/api/user/board/:boardID/task/:taskID', verifyingAuthentication, taskController.readTask);
-    router.post('/api/user/board/:boardID/task', verifyingAuthentication, taskController.createTask);
-    router.put('/api/user/board/:boardID/task', verifyingAuthentication, taskController.updateTask);
-    router.delete('/api/user/board/:boardID/task', verifyingAuthentication, taskController.deleteTask);
-    return router;
+const {
+  verifyingAuthentication
+} = require('../../middleware/authentication');
+
+exports.taskRouters = () => {
+  router.get('/api/user/board/:boardID/task/:taskID', verifyingAuthentication, taskController.readTask);
+  router.post('/api/user/board/:boardID/task', verifyingAuthentication, taskController.createTask);
+  router.put('/api/user/board/:boardID/task', verifyingAuthentication, taskController.updateTask);
+  router.delete('/api/user/board/:boardID/task', verifyingAuthentication, taskController.deleteTask);
+  return router;
 };

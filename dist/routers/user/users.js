@@ -1,17 +1,20 @@
 "use strict";
 
 //const { User } = require("../../models/user");
-var _require = require("express"),
-    Router = _require.Router;
+const {
+  Router
+} = require("express");
 
-var router = new Router();
-var userController = require("./userController");
+const router = new Router();
+
+const userController = require("./userController");
+
 exports.userRouters = function () {
   console.log('run');
   router.get('/api/user/list', userController.list);
   router.get('/api/user', userController.getProfileByID);
-  router.post('/api/user', userController.register);
-  //router.put('api/user',userController.updateUserInfo);
+  router.post('/api/user', userController.register); //router.put('api/user',userController.updateUserInfo);
+
   return router;
 };
 /*
