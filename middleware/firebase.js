@@ -2,14 +2,15 @@ var admin=require('firebase-admin');
 exports.initFirebaseConnection=async(firebase)=>{
     try{
         var firebaseConfig={
-            apiKey: "AIzaSyBfaoj7A7Pv3iWduetQsmZAyLada3a_Uk4",
+            /*apiKey: "AIzaSyBfaoj7A7Pv3iWduetQsmZAyLada3a_Uk4",
             authDomain: "todolist-dev-3e715.firebaseapp.com",
             databaseURL: "https://todolist-dev-3e715.firebaseio.com",
             projectId: "todolist-dev-3e715",
             storageBucket: "",
             messagingSenderId: "424824951267",
-            appId: "1:424824951267:web:76c082cc77ee0989b910d6"
-        };
+            appId: "1:424824951267:web:76c082cc77ee0989b910d6"*/
+            apiKey, authDomain, databaseURL, projectId, storageBucket, messagingSenderId, appId
+        } = process.env;
         //testing
         firebase.initializeApp(firebaseConfig);
         /*

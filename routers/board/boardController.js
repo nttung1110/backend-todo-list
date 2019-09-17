@@ -4,7 +4,7 @@ const Task=require(global.base_dir+'/models/task').Task;
 module.exports={
     createBoard(req,res)
     {
-        const uid=req.uid;
+        const uid=req.body.uid;
         console.log("id:",uid);
         console.log("name:",req.body.boardName);
         //console.log("userid:",req.body.userID);

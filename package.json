@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "start-dev": "PORT=4000 node ./bin/www",
-    "build": "babel src -d dist"
+    "start-dev": "PORT=4000 node ./bin/www ",
+    "build": "babel src -d build"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.6.0",
+    "@babel/runtime": "^7.6.0",
+    "babel": "^6.23.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",

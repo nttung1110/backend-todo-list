@@ -41,7 +41,7 @@ module.exports={
     {
         console.log("run register");
         //const email=req.body.email;
-        //console.log("email",req.body.email);
+        console.log("email",req.body.email);
         //var password=req.body.password;
         var registerID;
         console.log(req.headers);
@@ -51,6 +51,7 @@ module.exports={
             let uid=decodedToken.uid;
             const email=req.body.email;
             console.log("User:",uid);
+            console.log("Email:",email);
             return User.create({
                 userID:uid,
                 email:email,
@@ -62,7 +63,7 @@ module.exports={
                 updatedAt:"",
                 status:"",
             })
-            .then((user)=>res.status(201).send(user))
+            .then((user)=>res.status(200).send(user))
             .catch((error)=>res.status(400).send(error.message));
         }).catch(function(error){
             res.send(error.message);
