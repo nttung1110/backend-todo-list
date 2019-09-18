@@ -17,7 +17,7 @@ const User = require('../models/user').User;
 
 function verifyingAuthentication(req, res, next) {
   const tokenID = req.get("tokenID");
-  console.log("insidemiddleware", tokenID);
+  console.log("Inside Middleware Authentication", tokenID);
   admin.auth().verifyIdToken(tokenID).then(function (decodedToken) {
     let uid = decodedToken.uid;
     console.log("UID inside middleware", uid);

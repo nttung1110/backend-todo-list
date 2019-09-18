@@ -1,5 +1,6 @@
 //API CRUD Task
 const Task=require('../../models/task').Task;
+const Board=require('../../models/board').Board;
 module.exports={
     createTask(req,res)
     {
@@ -74,10 +75,21 @@ module.exports={
     },
     getListTaskByBoard(req,res)
     {
-        console.log("here");
+        console.log("Get List Task By Board");
+        return Board.findOne({
+            where:{boardID:req.params.boardID},
+        })
+        .then(board=>{
+        if(!board)
+        {
+            return res.status(404).send({
+                message:'Board does not exist',
+            });
+        }
         return Task.findAll({
             where:{boardID:req.params.boardID},
         }).then((tasks)=>res.status(200).send(tasks))
         .catch((error)=>{res.status(400).send(error);});
+    })
     }
 }
