@@ -3,12 +3,8 @@ var router=express.Router();
 const {userRouters}=require("./user/users");
 const {taskRouters}=require("./task/tasks");
 const {boardRouters}=require("./board/boards");
-<<<<<<< HEAD
 const {adminRouters}=require("./admin/admin");
-exports.initUserRouters = (app) => {
-=======
-export function initUserRouters(app){
->>>>>>> model-code
+export function initUserRouters (app) {
     app.use("/", userRouters());
 }
 export function initTaskRouters (app){
@@ -17,7 +13,7 @@ export function initTaskRouters (app){
 export function initBoardRouters(app){
     app.use("/",boardRouters());
 }
-exports.initAdminRouters=(app)=>{
+export function initAdminRouters(app){
     app.use("/",adminRouters());
 }
 

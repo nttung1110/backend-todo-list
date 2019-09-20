@@ -2,10 +2,7 @@
 const Sequelize = require('sequelize');
 const sequelize=require('../../models/index').sequelize;
 const Board=require('../../models/board').Board;
-<<<<<<< HEAD
-=======
 const Task=require('../../models/task').Task;
->>>>>>> model-code
 export function listBoardByUser(req,res)
     {
         const user=req.body.user;

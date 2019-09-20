@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.initUserRouters = initUserRouters;
 exports.initTaskRouters = initTaskRouters;
 exports.initBoardRouters = initBoardRouters;
+exports.initAdminRouters = initAdminRouters;
 
 var express = require('express');
 
@@ -23,6 +24,10 @@ const {
   boardRouters
 } = require("./board/boards");
 
+const {
+  adminRouters
+} = require("./admin/admin");
+
 function initUserRouters(app) {
   app.use("/", userRouters());
 }
@@ -33,6 +38,10 @@ function initTaskRouters(app) {
 
 function initBoardRouters(app) {
   app.use("/", boardRouters());
+}
+
+function initAdminRouters(app) {
+  app.use("/", adminRouters());
 }
 /*
 router.get('/test', function(req, res, next) {

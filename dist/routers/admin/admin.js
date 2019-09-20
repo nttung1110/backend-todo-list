@@ -1,22 +1,31 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.adminRouters = adminRouters;
+
 const {
   Router
-} = require('express');
+} = require("express");
 
 const router = new Router();
 
 const adminController = require("./adminController");
 
 const {
-  verifyingAdmin
-} = require("../../middleware/checkadmin");
+  verifyAdmin
+} = require('../../middleware/checkadmin');
 
-exports.adminRouters = function () {
-  router.get('api/admin/users/list', verifyingAdmin, adminController.listUsers); //router.get('api/admin/users',verifyingAdmin,adminController.getUserID);
-  //router.post('api/admin/user',verifyingAdmin,adminController.createUser);
-  //router.put('api/admin/user',verifyingAdmin,adminController.updateUserInfo);
+function adminRouters() {
+  //list view users
+  router.get('/api/admin/users', verifyAdmin, adminController.listUsers); //CRUD 
 
-  router.delete('api/admin/user', verifyingAdmin, adminController.deleteUser);
+  router.get('/api/admin/user', verifyAdmin, adminController.readUser);
+  router.post('/api/admin/user', verifyAdmin, adminController.createUser);
+  router.put('/api/admin/user', verifyAdmin, adminController.updateUserInfo);
+  router.delete('/api/admin/user', verifyAdmin, adminController.deleteUser); //login
+
+  router.post('/api/admin/login', verifyAdmin, adminController.loginAdmin);
   return router;
-};
+}

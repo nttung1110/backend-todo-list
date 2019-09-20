@@ -43,6 +43,10 @@ const {
 } = require('./routers');
 
 const {
+  initAdminRouters
+} = require('./routers');
+
+const {
   initFirebaseConnection
 } = require('./middleware/firebase');
 
@@ -71,7 +75,8 @@ if (!firebase.apps.length) {
 initAdmin();
 initUserRouters(app);
 initBoardRouters(app);
-initTaskRouters(app); // catch 404 and forward to error handler
+initTaskRouters(app);
+initAdminRouters(app); // catch 404 and forward to error handler
 
 app.use(function (req, res, next) {
   next(createError(404));

@@ -17,7 +17,7 @@ const User = require('../models/user').User;
 
 function verifyAdmin(req, res, next) {
   const tokenID = req.get("tokenID");
-  console.log("Inside Middleware Authentication", tokenID);
+  console.log("Inside Middleware Authentication of Admin", tokenID);
   admin.auth().verifyIdToken(tokenID).then(function (decodedToken) {
     let uid = decodedToken.uid;
     console.log("UID inside middleware", uid);
@@ -36,8 +36,8 @@ function verifyAdmin(req, res, next) {
       if (user.dataValues.typeUser == "admin") {
         next();
       } else {
-        res.status(403).send({
-          message: 'The permission of this account is not enough'
+        return res.status(403).send({
+          message: 'This user is not admin'
         });
       }
     }).catch(error => res.status(400).send(error));
