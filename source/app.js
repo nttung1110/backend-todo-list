@@ -14,6 +14,7 @@ const { initDatabase } = require('./models');
 const { initUserRouters } = require('./routers');
 const {initBoardRouters}=require('./routers');
 const {initTaskRouters}=require('./routers');
+const{initAdminRouters}=require('./routers');
 const {initFirebaseConnection}=require('./middleware/firebase');
 const {initAdmin}=require('./middleware/firebase');
 const app = express();
@@ -34,6 +35,7 @@ initAdmin();
 initUserRouters(app);
 initBoardRouters(app);
 initTaskRouters(app);
+initAdminRouters(app);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
