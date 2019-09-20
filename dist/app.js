@@ -90,4 +90,8 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   return res.json(err);
 });
+/*
+export GOOGLE_APPLICATION_CREDENTIALS="/home/tung/Downloads/todolist-dev-3e715-firebase-adminsdk-4dpsg-65d7376e97.json"
+*/
+
 app.listen(4000);

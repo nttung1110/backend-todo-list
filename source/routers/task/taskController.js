@@ -34,9 +34,15 @@ export function readTask(req,res)
                         message:'Task does not exist',
                     });
                 }
+                if(task.boardID!=req.params.boardID)
+                {
+                    return res.status(404).send({
+                        message:'This task does not belongs to this board,fail to access'
+                    })
+                }
                 return res.status(200).send(task);
             })
-            .catch((error)=>res.status(400).send(error));
+            .catch((error)=>res.status(400).send(error.message));
     }
 export function updateTask(req,res)
     {
@@ -49,6 +55,12 @@ export function updateTask(req,res)
                     return res.status(404).send({
                         message:'Task does not exist',
                     });
+                }
+                if(task.boardID!=req.params.boardID)
+                {
+                    return res.status(404).send({
+                        message:'This task does not belongs to this board,fail to access'
+                    })
                 }
                 return task.update({
                     taskName:req.body.taskName,
@@ -69,6 +81,12 @@ export function deleteTask(req,res){
                     return res.status(400).send({
                         message:'Task does not exist',
                     });
+                }
+                if(task.boardID!=req.params.boardID)
+                {
+                    return res.status(404).send({
+                        message:'This task does not belongs to this board,fail to access'
+                    })
                 }
                 return task
                 .destroy()
