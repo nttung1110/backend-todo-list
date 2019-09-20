@@ -31,11 +31,7 @@ export const initModelUser = (sequelize) => {
       type: Sequelize.STRING
     },
     typeUser:{
-<<<<<<< HEAD
-      type: Sequelize.STRING
-=======
       type:Sequelize.STRING
->>>>>>> model-code
     }
   }, {
     sequelize,

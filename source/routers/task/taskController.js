@@ -7,54 +7,12 @@ export function createTask(req,res)
         const boardID=req.params.boardID;
         const curUser =req.body.user;
         console.log("BoardID in creating Task",boardID);
-<<<<<<< HEAD
-        return Task.create({
-            taskName:req.body.taskName,
-            createdBy:curUser.firstName+curUser.lastName,
-            updatedBy:curUser.firstName+curUser.lastName,
-            status:"",
-            boardID:boardID,            
-            //adding
-        })
-        .then((task)=>res.status(201).send(task))
-        .catch((error)=>res.status(400).send(error))
-    }
-export function readTask(req,res)
-    {
-        return Task.findOne({
-            where:{taskID:req.params.taskID},
-            attributes:['taskID','taskName','status','boardID']
-        }).then((task)=>{
-            if(!task){
-                return res.status(404).send({
-                    message:'Task does not exist',
-                });
-            }
-            return res.status(200).send(task);
-        })
-        .catch((error)=>res.status(400).send(error));
-    }
-export function updateTask(req,res)
-    {
-        return Task.findOne({
-            where:{taskID:req.body.taskID},
-        })
-        .then(task=>{
-            if(!task)
-            {
-                return res.status(404).send({
-                    message:'Task does not exist',
-                });
-            }
-            return task.update({
-=======
         if(req.body.status==null || req.body.status==""){
             return res.status(400).send({
                 message:"Task must have status to be created"
             });
         }
             return Task.create({
->>>>>>> model-code
                 taskName:req.body.taskName,
                 createdBy:curUser.firstName+curUser.lastName,
                 updatedBy:curUser.firstName+curUser.lastName,
@@ -101,27 +59,6 @@ export function updateTask(req,res)
                 .catch((error)=>res.status(400).send(error));
             })
             .catch((error)=>res.status(400).send(error));
-<<<<<<< HEAD
-        })
-        .catch((error)=>res.status(400).send(error));
-    }
-export function  deleteTask(req,res){
-        return Task.findOne({
-            where:{taskID:req.body.taskID},
-        })
-        .then(task=>{
-            if(!task){
-                return res.status(400).send({
-                    message:'Task does not exist',
-                });
-            }
-            return task
-            .destroy()
-            .then(()=>res.status(204).send())
-            .catch((error)=>res.status(400).send(error));
-        })
-        .catch((error)=>res.status(400).send(error));
-=======
     }
 export function deleteTask(req,res){
             return Task.findOne({
@@ -139,7 +76,6 @@ export function deleteTask(req,res){
                 .catch((error)=>res.status(400).send(error));
             })
             .catch((error)=>res.status(400).send(error));
->>>>>>> model-code
     }
 export function getListTaskByBoard(req,res)
     {
@@ -148,9 +84,4 @@ export function getListTaskByBoard(req,res)
             where:{boardID:req.params.boardID},
         }).then((tasks)=>res.status(200).send(tasks))
         .catch((error)=>{res.status(400).send(error);});
-<<<<<<< HEAD
-    })
-}
-=======
     }
->>>>>>> model-code
