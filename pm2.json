@@ -1,0 +1,14 @@
+{
+  "apps": [
+    {
+      "name": "Backend-Todo-List",
+      "script": "npm",
+      "args": "run start-prod",
+      "watch": false,
+      "merge_logs": true,
+      "env": {
+        "NODE_ENV": "prod"
+      }
+    }
+  ]
+}
