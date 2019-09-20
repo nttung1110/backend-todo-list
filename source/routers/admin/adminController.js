@@ -57,6 +57,7 @@ module.exports={
                     lastName:req.body.lastName,
                     userPhone:req.body.userPhone,
                     birthDay:req.body.birthDay,
+                    typeUser:'user',
                     status:"",
                 })
                 .then((user)=>res.status(201).send(user))

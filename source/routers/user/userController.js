@@ -62,6 +62,7 @@ module.exports={
                 userPhone:req.body.userPhone,
                 birthDay:req.body.birthDay,
                 avatarURL:req.body.avatarURL,
+                typeUser:'user',
                 status:"",
             })
             .then((user)=>res.status(201).send(user))
