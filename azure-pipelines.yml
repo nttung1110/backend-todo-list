@@ -26,3 +26,8 @@ steps:
     sourceFolder: '$(Agent.BuildDirectory)/s/dist'
     contents: '**'
     targetFolder: '/home/dev/backend-todo-list/dist'
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'Thi''s Server'
+    runOptions: 'commands'
+    commands: 'cd /home/dev/backend-todo-list && pm2 reload pm2.json'
