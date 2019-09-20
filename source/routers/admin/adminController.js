@@ -3,13 +3,14 @@ const User=require('../../models/user').User;
 require("firebase/auth");
 require("firebase/firestore");
 var admin=require('firebase-admin');
-module.exports={
-    listUsers(req,res){
+
+export function listUsers(req,res){
         return User.findAll({
         }).then((users)=>res.status(200).send(users))
         .catch((error)=>{res.status(400).send(error.message);});
-    },
-    readUser(req,res){
+    }
+
+ export function readUser(req,res){
         console.log("Read 1 user");
         return User.findOne({
             where:{userID:req.body.uid},
@@ -23,9 +24,9 @@ module.exports={
             return res.status(200).send(board);
         })
         .catch((error)=>res.status(400).send(error));
-    },
+    }
 
-    loginAdmin(req,res){
+export function  loginAdmin(req,res){
         return User.findOne({
             where:{email:req.body.email},
             attributes:['userID','firstName','lastName','userPhone','typeUser']
@@ -38,10 +39,9 @@ module.exports={
         return res.status(200).send(user);
         })
         .catch((error)=>res.status(400).send(error));
-    },
+    }
 
-    createUser(req,res)
-    {
+export function  createUser(req,res){
         const tokenID=req.get('tokenID');
         console.log('New tokenID generated with admin:',tokenID);
         admin.auth().createUser({
@@ -67,8 +67,9 @@ module.exports={
                 console.log('Error creating new user:', error);
                 res.status(500).send(error.message);
             })
-    },
-    updateUserInfo(req,res)
+    }
+
+export function updateUserInfo(req,res)
     {
         console.log(req.body.userID);
         return User.findOne({
@@ -93,8 +94,9 @@ module.exports={
             .catch((error)=>res.status(400).send(error));
         })
         .catch((error)=>res.status(400).send(error.message)); //
-    },
-    deleteUser(req, res){
+    }
+
+export function deleteUser(req, res){
         admin.auth().deleteUser(req.body.uid).then(function(){
             console.log('Deleting user');
             return User.findOne({
@@ -119,5 +121,4 @@ module.exports={
        .catch(function(error){
            console.log('Error happened with deleting user in firebase');
        })
-    }, 
-}
+    }

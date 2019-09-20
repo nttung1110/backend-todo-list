@@ -1,8 +1,7 @@
 //API CRUD Task
 const Task=require('../../models/task').Task;
 const Board=require('../../models/board').Board;
-module.exports={
-    createTask(req,res)
+export function createTask(req,res)
     {
         //console.log("increating");
         const boardID=req.params.boardID;
@@ -18,8 +17,8 @@ module.exports={
         })
         .then((task)=>res.status(201).send(task))
         .catch((error)=>res.status(400).send(error))
-    },
-    readTask(req,res)
+    }
+export function readTask(req,res)
     {
         return Task.findOne({
             where:{taskID:req.params.taskID},
@@ -33,8 +32,8 @@ module.exports={
             return res.status(200).send(task);
         })
         .catch((error)=>res.status(400).send(error));
-    },
-    updateTask(req,res)
+    }
+export function updateTask(req,res)
     {
         return Task.findOne({
             where:{taskID:req.body.taskID},
@@ -55,8 +54,8 @@ module.exports={
             .catch((error)=>res.status(400).send(error));
         })
         .catch((error)=>res.status(400).send(error));
-    },
-    deleteTask(req,res){
+    }
+export function  deleteTask(req,res){
         return Task.findOne({
             where:{taskID:req.body.taskID},
         })
@@ -72,8 +71,8 @@ module.exports={
             .catch((error)=>res.status(400).send(error));
         })
         .catch((error)=>res.status(400).send(error));
-    },
-    getListTaskByBoard(req,res)
+    }
+export function getListTaskByBoard(req,res)
     {
         console.log("Get List Task By Board");
         return Board.findOne({
@@ -91,5 +90,4 @@ module.exports={
         }).then((tasks)=>res.status(200).send(tasks))
         .catch((error)=>{res.status(400).send(error);});
     })
-    }
 }

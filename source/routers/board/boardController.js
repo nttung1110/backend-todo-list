@@ -1,7 +1,6 @@
 //API CRUD Board
 const Board=require('../../models/board').Board;
-module.exports={
-    listBoardByUser(req,res)
+export function listBoardByUser(req,res)
     {
         const user=req.body.user;
         console.log("User ID for listing board:",user.userID);
@@ -15,8 +14,8 @@ module.exports={
         .catch((error)=>{
             res.status(400).send(error.message);
         })
-    },
-    createBoard(req,res)
+    }
+export function createBoard(req,res)
     {
         const user = req.body.user;
         console.log("User:",user );
@@ -33,8 +32,8 @@ module.exports={
         .then((board)=>{ res.status(200).send(board);})
         .catch((error)=>res.status(400).send(error.message));
 
-    },
-    readBoard(req,res)
+    }
+export function readBoard(req,res)
     {
         console.log("inside reading");
         return Board.findOne({
@@ -49,8 +48,8 @@ module.exports={
             return res.status(200).send(board);
         })
         .catch((error)=>res.status(400).send(error));
-    },
-    updateBoard(req,res)
+    }
+export function updateBoard(req,res)
     {
         console.log("insideupdating");
         return Board.findOne({
@@ -72,8 +71,8 @@ module.exports={
             .catch((error)=>res.status(400).send(error));
         })
         .catch((error)=>res.status(400).send(error.message));
-    },
-    deleteBoard(req,res)
+    }
+export function deleteBoard(req,res)
     {
         console.log("id",req.body.boardID);
         return Board.findOne({
@@ -95,5 +94,4 @@ module.exports={
             .catch((error)=>res.status(400).send(error.message));
         })
         .catch((error)=>res.status(400).send(error.message));
-    },
-}
+    }
