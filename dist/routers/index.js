@@ -34,6 +34,10 @@ function initTaskRouters(app) {
 function initBoardRouters(app) {
   app.use("/", boardRouters());
 }
+
+exports.initAdminRouters = app => {
+  app.use("/", adminRouters());
+};
 /*
 router.get('/test', function(req, res, next) {
     sequelize.query("SELECT * FROM Example", { type:Sequelize.QueryTypes.SELECT})
