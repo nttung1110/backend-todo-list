@@ -5,14 +5,13 @@ const Sequelize=require('sequelize');
 require("firebase/auth");
 require("firebase/firestore");
 var admin=require('firebase-admin');
-module.exports={
-    list(req,res){
+export function list(req,res){
         return User.findAll({
             
         }).then((users)=>res.status(200).send(users))
         .catch((error)=>{res.status(400).send(error.message);});
-    },
-    getProfileByID(req,res)
+    }
+export function getProfileByID(req,res)
     {
         const tokenID=req.get('tokenID');
         console.log("tokenID inside get Profile of User:",tokenID);
@@ -36,9 +35,9 @@ module.exports={
             res.send(error);
         });
         //console.log("userID",req.params.userID);
-    },
+    }
     //findByPK
-    register(req,res)
+export function register(req,res)
     {
         //const email=req.body.email;
         //console.log("email",req.body.email);
@@ -69,8 +68,8 @@ module.exports={
         }).catch(function(error){
             res.status(500).send(error.message);
         });
-    },
-    updateUserInfo(req,res)
+    }
+export function updateUserInfo(req,res)
     {
         return User.findByID(req.params.userID,{
 
@@ -91,4 +90,3 @@ module.exports={
         })
         .catch((error)=>res.status(400).send(error));
     }
-}

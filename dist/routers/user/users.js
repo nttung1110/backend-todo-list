@@ -1,5 +1,10 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.userRouters = userRouters;
+
 //const { User } = require("../../models/user");
 const {
   Router
@@ -9,14 +14,14 @@ const router = new Router();
 
 const userController = require("./userController");
 
-exports.userRouters = function () {
+function userRouters() {
   console.log('run');
   router.get('/api/user/list', userController.list);
   router.get('/api/user', userController.getProfileByID);
   router.post('/api/user', userController.register); //router.put('api/user',userController.updateUserInfo);
 
   return router;
-};
+}
 /*
 exports.userRouters = () => {
   router.get("/users", list);

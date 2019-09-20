@@ -40,6 +40,9 @@ const initModelUser = sequelize => {
     },
     status: {
       type: Sequelize.STRING
+    },
+    typeUser: {
+      type: Sequelize.STRING
     }
   }, {
     sequelize,

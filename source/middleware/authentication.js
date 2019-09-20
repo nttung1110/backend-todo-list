@@ -21,10 +21,14 @@ export function verifyingAuthentication(req,res,next){
                    message:'User does not exist',
                })
            }
+           if(user.dataValues.typeUser=="admin")
+            {
+                req.body.isAdmin="true";
+            }
            req.body.user=user.dataValues;
            next();
        })
        .catch((error)=>res.status(400).send(error));
     })
-    .catch((error)=>res.send(error.message));
+    .catch((error)=>res.status(400).send(error.message));
 }
