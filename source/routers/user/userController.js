@@ -11,7 +11,12 @@ export function list(req,res){
         }).then((users)=>res.status(200).send(users))
         .catch((error)=>{res.status(400).send(error.message);});
     }
+<<<<<<< HEAD
 export function getProfileByID(req,res){
+=======
+export function getProfileByID(req,res)
+    {
+>>>>>>> model-code
         const tokenID=req.get('tokenID');
         console.log("tokenID inside get Profile of User:",tokenID);
         admin.auth().verifyIdToken(tokenID)
@@ -69,7 +74,11 @@ export function register(req,res)
             res.status(500).send(error.message);
         });
     }
+<<<<<<< HEAD
 export function  updateUserInfo(req,res)
+=======
+export function updateUserInfo(req,res)
+>>>>>>> model-code
     {
         return User.findByID(req.params.userID,{
 
@@ -90,4 +99,7 @@ export function  updateUserInfo(req,res)
         })
         .catch((error)=>res.status(400).send(error));
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> model-code

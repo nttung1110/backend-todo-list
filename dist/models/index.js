@@ -16,21 +16,28 @@ const {
   initModelBoard
 } = require("./board");
 
-const Board = require("./board").Board;
+const {
+  Board
+} = require("./board");
 
-const Task = require("./task").Task;
+const {
+  Task
+} = require("./task");
 
-const User = require("./user").User; //const Sequelize=require("sequelize");
+const {
+  User
+} = require("./user"); //const Sequelize=require("sequelize");
 
 
+let sequelize;
 const models = {
-  User: require('./user'),
-  Board: require('./board'),
-  Task: require('./task')
+  "User": User,
+  "Board": Board,
+  "Task": Task
 };
 
 exports.initDatabase = async () => {
-  const sequelize = await initConnectionDatabase();
+  sequelize = await initConnectionDatabase();
   initModelUser(sequelize);
   initModelTask(sequelize);
   initModelBoard(sequelize);
@@ -40,4 +47,7 @@ exports.initDatabase = async () => {
       models[modelKey].associate(models);
     }
   });
+  sequelize.sync();
 };
+
+exports.sequelize = sequelize;
