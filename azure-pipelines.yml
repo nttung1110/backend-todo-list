@@ -23,6 +23,6 @@ steps:
 - task: CopyFilesOverSSH@0
   inputs:
     sshEndpoint: 'Thi''s Server'
-    sourceFolder: '$(Agent.BuildDirectory)'
+    sourceFolder: '$(Agent.BuildDirectory)/s/dist'
     contents: '**'
-    targetFolder: '/home/dev/backend-todo-list'
+    targetFolder: '/home/dev/backend-todo-list/dist'
