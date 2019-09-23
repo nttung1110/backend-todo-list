@@ -1,13 +1,24 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.initModelUser = exports.User = void 0;
+
 const Sequelize = require('sequelize');
-export class User extends Sequelize.Model { }
-export const initModelUser = (sequelize) => {
-  const curUser= User.init({
-    userID:{
+
+class User extends Sequelize.Model {}
+
+exports.User = User;
+
+const initModelUser = sequelize => {
+  const curUser = User.init({
+    userID: {
       type: Sequelize.STRING,
-      primaryKey: true  
+      primaryKey: true
     },
-    email:{
-      type:Sequelize.STRING,
+    email: {
+      type: Sequelize.STRING
     },
     firstName: {
       type: Sequelize.STRING
@@ -15,7 +26,7 @@ export const initModelUser = (sequelize) => {
     lastName: {
       type: Sequelize.STRING
     },
-    userPhone:{
+    userPhone: {
       type: Sequelize.STRING
     },
     birthDay: {
@@ -24,14 +35,14 @@ export const initModelUser = (sequelize) => {
     avatarURL: {
       type: Sequelize.STRING
     },
-    updatedAt:{
+    updatedAt: {
       type: Sequelize.DATE
     },
-    status:{
+    status: {
       type: Sequelize.STRING
     },
-    typeUser:{
-      type:Sequelize.STRING
+    typeUser: {
+      type: Sequelize.STRING
     }
   }, {
     sequelize,
@@ -48,5 +59,7 @@ export const initModelUser = (sequelize) => {
   }
   return curUser;
   */
-}
-//sequelize.models.user;
+}; //sequelize.models.user;
+
+
+exports.initModelUser = initModelUser;

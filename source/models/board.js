@@ -37,7 +37,7 @@ export const initModelBoard=(sequelize)=>{
     curBoard.associate=function(models){
       Board.belongsTo(models.User,{
           foreignKey:'userID',
-      });
+      })
       Board.hasMany(models.Task,{
           foreignKey:'boardID',
       });
