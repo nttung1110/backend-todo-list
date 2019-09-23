@@ -2,7 +2,7 @@
 const { Router } = require("express");
 const router = new Router();
 const userController=require("./userController");
-exports.userRouters=function(){
+export function userRouters(){
   console.log('run');
   router.get('/api/user/list',userController.list);
   router.get('/api/user',userController.getProfileByID);

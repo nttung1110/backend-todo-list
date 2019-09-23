@@ -2,7 +2,7 @@ const {Router} = require("express");
 const router=new Router();
 const adminController=require("./adminController");
 const {verifyAdmin}=require('../../middleware/checkadmin');
-exports.adminRouters=()=>{
+export function adminRouters(){
     //list view users
     router.get('/api/admin/users',verifyAdmin,adminController.listUsers);
     //CRUD 

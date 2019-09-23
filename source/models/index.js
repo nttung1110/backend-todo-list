@@ -2,17 +2,18 @@ const { initConnectionDatabase } = require("../middleware/database");
 const { initModelUser } = require("./user");
 const {initModelTask}=require("./task");
 const {initModelBoard}=require("./board");
-const Board=require("./board").Board;
-const Task=require("./task").Task;
-const User=require("./user").User;
+const {Board}=require("./board");
+const {Task}=require("./task");
+const {User}=require("./user");
 //const Sequelize=require("sequelize");
+let sequelize;
 const models={
-  User: require('./user'),
-  Board: require('./board'),
-  Task: require('./task')
+  "User": User,
+  "Board": Board,
+  "Task": Task
 }
-exports.initDatabase = async () => {
-  const sequelize = await initConnectionDatabase();
+exports.initDatabase = async () => { 
+  sequelize = await initConnectionDatabase();
   initModelUser(sequelize);
   initModelTask(sequelize);
   initModelBoard(sequelize);
@@ -22,4 +23,6 @@ exports.initDatabase = async () => {
       models[modelKey].associate(models)
     }
   })
+  sequelize.sync();
 }
+exports.sequelize=sequelize

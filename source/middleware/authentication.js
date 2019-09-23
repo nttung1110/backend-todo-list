@@ -26,5 +26,5 @@ export function verifyingAuthentication(req,res,next){
        })
        .catch((error)=>res.status(400).send(error));
     })
-    .catch((error)=>res.send(error.message));
+    .catch((error)=>res.status(400).send(error.message));
 }
