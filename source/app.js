@@ -16,8 +16,12 @@ const {initBoardRouters}=require('./routers');
 const {initTaskRouters}=require('./routers');
 const{initAdminRouters}=require('./routers');
 const {initFirebaseConnection}=require('./middleware/firebase');
+const {authCloudExplicit}=require('./middleware/firebase');
 const {initAdmin}=require('./middleware/firebase');
 const app = express();
+const projectId= 'todolist-dev-3e715'
+const keyFilename='/home/tung/Downloads/todolist-dev-3e715-firebase-adminsdk-4dpsg-65d7376e97.json'
+
 app.use(headerParser);
 app.use(logger('dev'));
 app.use(cors({
@@ -28,10 +32,11 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 initDatabase();
-if (!firebase.apps.length) {
+/*if (!firebase.apps.length) {
   initFirebaseConnection(firebase);
-}
+}*/
 initAdmin();
+//authCloudExplicit(projectId,keyFilename);
 initUserRouters(app);
 initBoardRouters(app);
 initTaskRouters(app);
