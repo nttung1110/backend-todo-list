@@ -12,7 +12,7 @@ const models={
   "Board": Board,
   "Task": Task
 }
-exports.initDatabase = async () => { 
+export async function initDatabase (){ 
   sequelize = await initConnectionDatabase();
   initModelUser(sequelize);
   initModelTask(sequelize);
@@ -26,3 +26,4 @@ exports.initDatabase = async () => {
   sequelize.sync();
 }
 exports.sequelize=sequelize
+

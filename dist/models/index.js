@@ -1,5 +1,10 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.initDatabase = initDatabase;
+
 const {
   initConnectionDatabase
 } = require("../middleware/database");
@@ -36,7 +41,7 @@ const models = {
   "Task": Task
 };
 
-exports.initDatabase = async () => {
+async function initDatabase() {
   sequelize = await initConnectionDatabase();
   initModelUser(sequelize);
   initModelTask(sequelize);
@@ -48,6 +53,6 @@ exports.initDatabase = async () => {
     }
   });
   sequelize.sync();
-};
+}
 
 exports.sequelize = sequelize;

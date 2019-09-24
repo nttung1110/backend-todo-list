@@ -3,6 +3,9 @@ export class Task extends Sequelize.Model{  }
 export const BoardModel=require('./board');
 export const initModelTask=(sequelize)=>{
     const curTask= Task.init({
+          description:{
+            type:Sequelize.STRING
+          },
           taskID:{
             type: Sequelize.BIGINT,
             autoIncrement: true,
