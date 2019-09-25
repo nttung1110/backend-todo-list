@@ -1,5 +1,9 @@
+import { equal } from 'assert';
+
 //CRUD user
 const User=require('../../models/user').User;
+const Board=require('../../models/board').Board;
+const Task=require('../../models/task').Task;
 require("firebase/auth");
 require("firebase/firestore");
 var admin=require('firebase-admin');
@@ -13,7 +17,7 @@ export function listUsers(req,res){
  export function readUser(req,res){
         console.log("Read 1 user");
         return User.findOne({
-            where:{userID:req.body.uid},
+            where:{userID:req.params.uid},
             attributes:['userID','firstName','lastName','userPhone',]
         }).then((board)=>{
             if(!board){
@@ -26,7 +30,7 @@ export function listUsers(req,res){
         .catch((error)=>res.status(400).send(error));
     }
 
-export function  loginAdmin(req,res){
+export function loginAdmin(req,res){
         return User.findOne({
             where:{email:req.body.email},
             attributes:['userID','firstName','lastName','userPhone','typeUser']
@@ -71,9 +75,9 @@ export function  createUser(req,res){
 
 export function updateUserInfo(req,res)
     {
-        console.log(req.body.userID);
+        console.log(req.params.uid);
         return User.findOne({
-            where:{userID:req.body.userID},
+            where:{userID:req.params.uid},
         })
         .then(user=>{
             if(!user){
@@ -97,12 +101,12 @@ export function updateUserInfo(req,res)
     }
 
 export function deleteUser(req, res){
-        admin.auth().deleteUser(req.body.uid).then(function(){
+        admin.auth().deleteUser(req.params.uid).then(function(){
             console.log('Deleting user');
             return User.findOne({
-                where:{userID:req.body.uid},
+                where:{userID:req.params.uid},
             })
-            .then(user=>{
+        .then(user=>{
                 if(!user){
                     return res.status(400).send({
                         message:'User does not exist',
@@ -118,7 +122,81 @@ export function deleteUser(req, res){
             })
             .catch((error)=>res.status(400).send(error.message));
        })
-       .catch(function(error){
-           console.log('Error happened with deleting user in firebase');
+        .catch(function(error){
+                console.log('Error happened with deleting user in firebase');
        })
-    }
+}
+
+//advanced
+export function readBoards(req,res){
+        return Board.findAll({
+            where:{userID: req.params.uid},
+            attributes:['boardID','boardName','status','userID','boardColor']
+        }).then((boards) =>res.status(200).send(boards))
+        .catch((error) =>res.status(400).send(error.message));
+}
+
+export function createBoard(req,res){
+        return Board.create({
+            boardName:req.body.boardName,
+            boardColor:req.body.boardColor,
+            userID:req.params.uid,
+        })
+        .then((board)=>{res.status(200).send(board);})
+        .catch((error)=>res.status(400).send(error.message));
+}
+
+export function deleteBoard(req,res){
+    return Board.findOne({
+        where:{boardID:req.params.boardID},
+    })
+    .then(board=>{
+        if(!board){
+            return res.status(400).send({
+                message:'Board does not exist',
+            });
+        }
+        return board
+        .destroy()
+        .then(()=>{
+            res.status(204).send({
+                message:'Deleteing board succesfully',
+            })
+        .catch((error)=>res.status(400).send(error));
+    })
+    .catch((error)=>res.status(400).send(error));
+    })
+}
+
+
+export function updateBoard(req,res){
+    return Board.findOne({
+        where:{boardID:req.params.boardID},
+    })
+    .then(board=>{
+        if(!board){
+            return res.status(404).send({
+                message:'Board does not exist',
+            });
+        }
+        return board.update({
+            boardName:req.body.boardName,
+            status:req.body.status,
+        })
+        .then(()=>res.status(200).send(task))
+        .catch((error)=>res.status(400).send(error));
+    })
+    .catch((error)=>res.status(400).send(error));
+    //
+}
+
+
+export function readTasks(req,res){
+    return Task.findAll({
+        where:{taskID:req.params.taskID},
+        attributes:['taskID','taskName','status','boardID','description']
+    })
+    .then()
+}
+
+

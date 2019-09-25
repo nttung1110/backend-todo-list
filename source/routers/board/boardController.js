@@ -9,7 +9,7 @@ export function listBoardByUser(req,res)
         console.log("User ID for listing board:",user.userID);        
         return Board.findAll({
             where:{userID:user.userID},
-            attributes:['boardID','boardName','status','userID']
+            attributes:['boardID','boardName','status','userID','boardColor']
         }).then((boards)=>{
             if(boards.length!=0)
             {
@@ -71,6 +71,7 @@ export function createBoard(req,res)
             boardName: req.body.boardName,
             createdBy:user.firstName+user.lastName,
             updatedBy:user.firstName+user.lastName,
+            boardColor: req.body.boardColor,
             status:req.body.status,
             userID:user.userID,
         })
@@ -106,7 +107,7 @@ export function updateBoard(req,res)
         console.log("insideupdating");
         const curuserID=req.body.user.userID;
         return Board.findOne({
-            where:{boardID:req.body.boardID},
+            where:{boardID:req.params.boardID},
         })
         .then(board=>{
             if(!board){
@@ -133,10 +134,10 @@ export function updateBoard(req,res)
     }
 export function deleteBoard(req,res)
     {
-        console.log("id",req.body.boardID);
         const curuserID=req.body.user.userID;
+        console.log("id",req.params.boardID);
         return Board.findOne({
-            where:{boardID:req.body.boardID},
+            where:{boardID:req.params.boardID},
         })
         .then(board=>{
             if(!board){
