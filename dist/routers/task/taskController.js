@@ -17,6 +17,7 @@ const Board = require('../../models/board').Board;
 function createTask(req, res) {
   //console.log("increating");
   const boardID = req.params.boardID;
+  const description = req.body.description;
   const curUser = req.body.user;
   console.log("BoardID in creating Task", boardID);
 
@@ -28,6 +29,7 @@ function createTask(req, res) {
 
   return Task.create({
     taskName: req.body.taskName,
+    description: req.body.description,
     createdBy: curUser.firstName + curUser.lastName,
     updatedBy: curUser.firstName + curUser.lastName,
     status: req.body.status,
@@ -41,7 +43,7 @@ function readTask(req, res) {
     where: {
       taskID: req.params.taskID
     },
-    attributes: ['taskID', 'taskName', 'status', 'boardID']
+    attributes: ['taskID', 'taskName', 'status', 'description', 'boardID']
   }).then(task => {
     if (!task) {
       return res.status(404).send({
@@ -62,7 +64,7 @@ function readTask(req, res) {
 function updateTask(req, res) {
   return Task.findOne({
     where: {
-      taskID: req.body.taskID
+      taskID: req.params.taskID
     }
   }).then(task => {
     if (!task) {
@@ -79,7 +81,8 @@ function updateTask(req, res) {
 
     return task.update({
       taskName: req.body.taskName,
-      status: req.body.status //add here
+      status: req.body.status,
+      description: req.body.description //add here
 
     }).then(() => res.status(200).send(task)).catch(error => res.status(400).send(error));
   }).catch(error => res.status(400).send(error));
@@ -88,7 +91,7 @@ function updateTask(req, res) {
 function deleteTask(req, res) {
   return Task.findOne({
     where: {
-      taskID: req.body.taskID
+      taskID: req.params.taskID
     }
   }).then(task => {
     if (!task) {
@@ -112,7 +115,8 @@ function getListTaskByBoard(req, res) {
   return Task.findAll({
     where: {
       boardID: req.params.boardID
-    }
+    },
+    order: [['taskID', 'ASC']]
   }).then(tasks => res.status(200).send(tasks)).catch(error => {
     res.status(400).send(error);
   });

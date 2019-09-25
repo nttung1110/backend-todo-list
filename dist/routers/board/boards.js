@@ -28,7 +28,7 @@ function boardRouters() {
   router.get('/api/user/board/:boardID', verifyingAuthentication, boardController.readBoard);
   router.get('/api/user/board/:boardID/tasks', verifyingAuthentication, verifyingBoardUser, taskController.getListTaskByBoard);
   router.post('/api/user/board', verifyingAuthentication, boardController.createBoard);
-  router.put('/api/user/board', verifyingAuthentication, boardController.updateBoard);
-  router.delete('/api/user/board', verifyingAuthentication, boardController.deleteBoard);
+  router.put('/api/user/board/:boardID', verifyingAuthentication, boardController.updateBoard);
+  router.delete('/api/user/board/:boardID', verifyingAuthentication, boardController.deleteBoard);
   return router;
 }

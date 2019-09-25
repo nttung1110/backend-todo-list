@@ -33,6 +33,10 @@ function verifyingAuthentication(req, res, next) {
         });
       }
 
+      if (user.dataValues.typeUser == "user") {
+        req.body.isAdmin = "true";
+      }
+
       req.body.user = user.dataValues;
       next();
     }).catch(error => res.status(400).send(error));

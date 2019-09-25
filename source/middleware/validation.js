@@ -10,7 +10,10 @@ export function validUser(req,res,next){
                 message: 'User does not exist',
             });
         }
-        next()
+        else{
+            req.body.user=User;
+            next();
+        }
     })
 }
 

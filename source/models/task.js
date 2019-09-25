@@ -32,9 +32,6 @@ export const initModelTask=(sequelize)=>{
           boardID:{
             type: Sequelize.BIGINT
           },
-          description:{
-            type: Sequelize.STRING
-          }
     },{
         sequelize,
         modelName:'task',

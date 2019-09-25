@@ -103,6 +103,9 @@ export function getListTaskByBoard(req,res)
         console.log("Get List Task By Board");
         return Task.findAll({
             where:{boardID:req.params.boardID},
+            order: [
+                ['taskID', 'ASC'],
+            ],
         }).then((tasks)=>res.status(200).send(tasks))
         .catch((error)=>{res.status(400).send(error);});
     }

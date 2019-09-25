@@ -24,7 +24,7 @@ const {
 function taskRouters() {
   router.get('/api/user/board/:boardID/task/:taskID', verifyingAuthentication, verifyingBoardUser, taskController.readTask);
   router.post('/api/user/board/:boardID/task', verifyingAuthentication, verifyingBoardUser, taskController.createTask);
-  router.put('/api/user/board/:boardID/task', verifyingAuthentication, verifyingBoardUser, taskController.updateTask);
-  router.delete('/api/user/board/:boardID/task', verifyingAuthentication, verifyingBoardUser, taskController.deleteTask);
+  router.put('/api/user/board/:boardID/task/:taskID', verifyingAuthentication, verifyingBoardUser, taskController.updateTask);
+  router.delete('/api/user/board/:boardID/task/:taskID', verifyingAuthentication, verifyingBoardUser, taskController.deleteTask);
   return router;
 }

@@ -17,9 +17,16 @@ export function adminRouters(){
     //login
     router.get('/api/admin/login',verifyAdmin,adminController.loginAdmin);
     //CRUD tables
-    router.get('/api/admin/u/:uid/b/list',verifyAdmin,validUser,adminController.readBoards);
-    router.put('/api/admin/u/:uid/b/:boardID',verifyAdmin,validUser,adminController.updateBoard);
-    router.post('/api/admin/u/:uid/b',verifyAdmin,validUser,adminController.createBoard);
-    router.delete('/api/admin/u/:uid/b/:boardID',verifyAdmin,validUser,adminController.deleteBoard);
+    router.get('/api/admin/user/:uid/board/list',verifyAdmin,validUser,adminController.readListBoards);
+    router.get('/api/admin/user/:uid/board/:boardID',verifyAdmin,validUser,adminController.readBoard);
+    router.put('/api/admin/user/:uid/board/:boardID',verifyAdmin,validUser,adminController.updateBoard);
+    router.post('/api/admin/user/:uid/board',verifyAdmin,validUser,adminController.createBoard);
+    router.delete('/api/admin/user/:uid/board/:boardID',verifyAdmin,validUser,adminController.deleteBoard);
+    //CRUD tasks
+    router.get('/api/admin/user/:uid/board/:boardID/tasks',verifyAdmin,validUser,adminController.readListTasks);
+    router.get('/api/admin/user/:uid/board/:boardID/task/:taskID',verifyAdmin,validUser,adminController.readTask);
+    router.put('/api/admin/user/:uid/board/:boardID/task/:taskID',verifyAdmin,validUser,adminController.updateTask);
+    router.post('/api/admin/user/:uid/board/:boardID/task',verifyAdmin,validUser,adminController.createTask);
+    router.delete('/api/admin/user/:uid/board/:boardID/task/:taskID',verifyAdmin,validUser,adminController.deleteTask);
     return router;
 }

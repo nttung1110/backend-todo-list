@@ -9,7 +9,7 @@ export function listBoardByUser(req,res)
         console.log("User ID for listing board:",user.userID);        
         return Board.findAll({
             where:{userID:user.userID},
-            attributes:['boardID','boardName','status','userID','boardColor']
+            attributes:['boardID','boardName','status','userID']
         }).then((boards)=>{
             if(boards.length!=0)
             {
@@ -19,6 +19,9 @@ export function listBoardByUser(req,res)
                 var details=[] 
                 Task.findAll({
                     where:{boardID:curboardID},
+                    order: [
+                        ['taskID', 'ASC'],
+                    ],
                 }).then((tasks)=>{
                     var dict=new Object();
                     var count=0;
@@ -71,7 +74,6 @@ export function createBoard(req,res)
             boardName: req.body.boardName,
             createdBy:user.firstName+user.lastName,
             updatedBy:user.firstName+user.lastName,
-            boardColor: req.body.boardColor,
             status:req.body.status,
             userID:user.userID,
         })
