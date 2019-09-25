@@ -27,7 +27,7 @@ export function readTask(req,res)
     {
             return Task.findOne({
                 where:{taskID:req.params.taskID},
-                attributes:['taskID','taskName','status','boardID']
+                attributes:['taskID','taskName','status','description','boardID']
             }).then((task)=>{
                 if(!task){
                     return res.status(404).send({
@@ -41,7 +41,7 @@ export function readTask(req,res)
 export function updateTask(req,res)
     {
             return Task.findOne({
-                where:{taskID:req.body.taskID},
+                where:{taskID:req.params.taskID},
             })
             .then(task=>{
                 if(!task)
@@ -53,6 +53,7 @@ export function updateTask(req,res)
                 return task.update({
                     taskName:req.body.taskName,
                     status:req.body.status,
+                    description:req.body.description
                     //add here
                 })
                 .then(()=>res.status(200).send(task))
@@ -62,7 +63,7 @@ export function updateTask(req,res)
     }
 export function deleteTask(req,res){
             return Task.findOne({
-                where:{taskID:req.body.taskID},
+                where:{taskID:req.params.taskID},
             })
             .then(task=>{
                 if(!task){

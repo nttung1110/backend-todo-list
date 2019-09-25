@@ -1,5 +1,10 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.adminRouters = adminRouters;
+
 const {
   Router
 } = require("express");
@@ -12,7 +17,7 @@ const {
   verifyAdmin
 } = require('../../middleware/checkadmin');
 
-exports.adminRouters = () => {
+function adminRouters() {
   //list view users
   router.get('/api/admin/users', verifyAdmin, adminController.listUsers); //CRUD 
 
@@ -23,4 +28,4 @@ exports.adminRouters = () => {
 
   router.post('/api/admin/login', verifyAdmin, adminController.loginAdmin);
   return router;
-};
+}

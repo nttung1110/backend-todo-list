@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.initUserRouters = initUserRouters;
 exports.initTaskRouters = initTaskRouters;
 exports.initBoardRouters = initBoardRouters;
+exports.initAdminRouters = initAdminRouters;
 
 var express = require('express');
 
@@ -23,6 +24,10 @@ const {
   boardRouters
 } = require("./board/boards");
 
+const {
+  adminRouters
+} = require("./admin/admin");
+
 function initUserRouters(app) {
   app.use("/", userRouters());
 }
@@ -35,9 +40,9 @@ function initBoardRouters(app) {
   app.use("/", boardRouters());
 }
 
-exports.initAdminRouters = app => {
+function initAdminRouters(app) {
   app.use("/", adminRouters());
-};
+}
 /*
 router.get('/test', function(req, res, next) {
     sequelize.query("SELECT * FROM Example", { type:Sequelize.QueryTypes.SELECT})
