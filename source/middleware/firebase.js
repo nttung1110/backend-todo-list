@@ -1,6 +1,6 @@
 var admin=require('firebase-admin');
 const serviceAccount=require('../../todolist-dev-3e715-firebase-adminsdk-4dpsg-65d7376e97.json')
-exports.initFirebaseConnection=async(firebase)=>{
+export async function initFirebaseConnection(firebase){
     try{
         var firebaseConfig={
             apiKey: "AIzaSyBfaoj7A7Pv3iWduetQsmZAyLada3a_Uk4",
@@ -26,7 +26,8 @@ exports.initFirebaseConnection=async(firebase)=>{
         throw error;
     }
 }
-exports.authCloudExplicit = async ({projectId, keyFilename}) => {
+//exports.authCloudExplicit = async ({projectId, keyFilename}) => {
+export async function authCloudExplicit ({projectId, keyFilename})  {
     // [START auth_cloud_explicit]
     // Imports the Google Cloud client library.
     const {Storage} = require('@google-cloud/storage');
@@ -52,7 +53,8 @@ exports.authCloudExplicit = async ({projectId, keyFilename}) => {
     // [END auth_cloud_explicit]
   };
   
-exports.initAdmin=async()=>{
+//exports .initAdmin=async()=>{
+export async function initAdmin(){
     admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
         databaseURL: 'https://todolist-dev-3e715.firebaseio.com/'

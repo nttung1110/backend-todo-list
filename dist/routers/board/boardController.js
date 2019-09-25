@@ -147,6 +147,7 @@ function updateBoard(req, res) {
 
 function deleteBoard(req, res) {
   console.log("id", req.body.boardID);
+  const curuserID = req.body.user.userID;
   return Board.findOne({
     where: {
       boardID: req.body.boardID
