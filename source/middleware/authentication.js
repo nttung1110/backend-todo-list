@@ -21,6 +21,10 @@ export function verifyingAuthentication(req,res,next){
                    message:'User does not exist',
                })
            }
+           if(user.dataValues.typeUser=="user")
+            {
+                req.body.isAdmin="true";
+            }
            req.body.user=user.dataValues;
            next();
        })

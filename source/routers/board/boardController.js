@@ -19,6 +19,9 @@ export function listBoardByUser(req,res)
                 var details=[] 
                 Task.findAll({
                     where:{boardID:curboardID},
+                    order: [
+                        ['taskID', 'ASC'],
+                    ],
                 }).then((tasks)=>{
                     var dict=new Object();
                     var count=0;
@@ -106,7 +109,7 @@ export function updateBoard(req,res)
         console.log("insideupdating");
         const curuserID=req.body.user.userID;
         return Board.findOne({
-            where:{boardID:req.body.boardID},
+            where:{boardID:req.params.boardID},
         })
         .then(board=>{
             if(!board){
@@ -133,10 +136,10 @@ export function updateBoard(req,res)
     }
 export function deleteBoard(req,res)
     {
-        console.log("id",req.body.boardID);
         const curuserID=req.body.user.userID;
+        console.log("id",req.params.boardID);
         return Board.findOne({
-            where:{boardID:req.body.boardID},
+            where:{boardID:req.params.boardID},
         })
         .then(board=>{
             if(!board){

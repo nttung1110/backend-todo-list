@@ -12,14 +12,17 @@ export function verifyingBoardUser(req,res,next)
                 message:"Board does not exist"
             })
         }
-        if(board.userID!=curUser.userID)
+        else if(board.userID!=curUser.userID)
         {
             res.status(404).send({
                 message:"This user is not the owner of this board,fail to access the board"
             })
         }
-        req.body.user=curUser;
-        req.params.boardID=curBoardID;
-        next()
-    })
+        else
+        {
+            req.body.user=curUser;
+            req.params.boardID=curBoardID;
+            next()
+        }
+    }).catch((error)=>{res.status(404).send(error.message)})
 }

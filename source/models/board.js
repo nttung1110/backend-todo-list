@@ -27,7 +27,7 @@ export const initModelBoard=(sequelize)=>{
           },
           userID:{
             type: Sequelize.STRING
-          }
+          },
     },{
         sequelize,
         modelName:'board',
