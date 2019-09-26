@@ -11,5 +11,8 @@ export function boardRouters(){
     router.post('/api/user/board',verifyingAuthentication,boardController.createBoard);
     router.put('/api/user/board/:boardID',verifyingAuthentication,boardController.updateBoard);
     router.delete('/api/user/board/:boardID',verifyingAuthentication,boardController.deleteBoard);
+    //API for mobile team
+    router.put('/api/user/board',verifyingAuthentication,boardController.updateBoardMobile);
+    router.delete('/api/user/board',verifyingAuthentication,boardController.deleteBoardMobile);
     return router;
 }

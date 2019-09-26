@@ -83,7 +83,8 @@ export function updateUserInfo(req,res)
             }
             return user
             .update({
-                userID:req.body.userID||user.userID,
+                firstName:req.body.firstName,
+                lastName:req.body.lastName,
                 //add here
             })
             .then(()=>res.status(200).send(user))

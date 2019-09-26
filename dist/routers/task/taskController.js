@@ -6,7 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.createTask = createTask;
 exports.readTask = readTask;
 exports.updateTask = updateTask;
+exports.updateTaskMobile = updateTaskMobile;
 exports.deleteTask = deleteTask;
+exports.deleteTaskMobile = deleteTaskMobile;
 exports.getListTaskByBoard = getListTaskByBoard;
 
 //API CRUD Task
@@ -88,10 +90,59 @@ function updateTask(req, res) {
   }).catch(error => res.status(400).send(error));
 }
 
+function updateTaskMobile(req, res) {
+  return Task.findOne({
+    where: {
+      taskID: req.body.taskID
+    }
+  }).then(task => {
+    if (!task) {
+      return res.status(404).send({
+        message: 'Task does not exist'
+      });
+    }
+
+    if (task.boardID != req.params.boardID) {
+      return res.status(404).send({
+        message: 'This task does not belongs to this board,fail to access'
+      });
+    }
+
+    return task.update({
+      taskName: req.body.taskName,
+      status: req.body.status,
+      description: req.body.description //add here
+
+    }).then(() => res.status(200).send(task)).catch(error => res.status(400).send(error));
+  }).catch(error => res.status(400).send(error));
+}
+
 function deleteTask(req, res) {
   return Task.findOne({
     where: {
       taskID: req.params.taskID
+    }
+  }).then(task => {
+    if (!task) {
+      return res.status(400).send({
+        message: 'Task does not exist'
+      });
+    }
+
+    if (task.boardID != req.params.boardID) {
+      return res.status(404).send({
+        message: 'This task does not belongs to this board,fail to access'
+      });
+    }
+
+    return task.destroy().then(() => res.status(204).send()).catch(error => res.status(400).send(error));
+  }).catch(error => res.status(400).send(error));
+}
+
+function deleteTaskMobile(req, res) {
+  return Task.findOne({
+    where: {
+      taskID: req.body.taskID
     }
   }).then(task => {
     if (!task) {
