@@ -6,8 +6,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.listBoardByUser = listBoardByUser;
 exports.createBoard = createBoard;
 exports.readBoard = readBoard;
+exports.updateBoardMobile = updateBoardMobile;
 exports.updateBoard = updateBoard;
 exports.deleteBoard = deleteBoard;
+exports.deleteBoardMobile = deleteBoardMobile;
 
 //API CRUD Board
 const Sequelize = require('sequelize');
@@ -118,6 +120,34 @@ function readBoard(req, res) {
   }).catch(error => res.status(400).send(error));
 }
 
+function updateBoardMobile(req, res) {
+  console.log("insideupdating");
+  const curuserID = req.body.user.userID;
+  return Board.findOne({
+    where: {
+      boardID: req.body.boardID
+    }
+  }).then(board => {
+    if (!board) {
+      return res.status(404).send({
+        message: 'Board does not exist'
+      });
+    }
+
+    if (board.userID != curuserID) {
+      return res.status(404).send({
+        message: 'You are not the owner of this board,fail to update the board'
+      });
+    }
+
+    return board.update({
+      boardName: req.body.boardName,
+      status: req.body.status //add here
+
+    }).then(() => res.status(200).send(board)).catch(error => res.status(400).send(error));
+  }).catch(error => res.status(400).send(error.message));
+}
+
 function updateBoard(req, res) {
   console.log("insideupdating");
   const curuserID = req.body.user.userID;
@@ -152,6 +182,34 @@ function deleteBoard(req, res) {
   return Board.findOne({
     where: {
       boardID: req.params.boardID
+    }
+  }).then(board => {
+    if (!board) {
+      return res.status(400).send({
+        message: 'Board does not exist'
+      });
+    }
+
+    if (board.userID != curuserID) {
+      return res.status(404).send({
+        message: 'You are not the owner of this board,fail to delete the board'
+      });
+    }
+
+    return board.destroy().then(() => {
+      res.status(204).send({
+        message: 'Deleting Board successfully'
+      });
+    }).catch(error => res.status(400).send(error.message));
+  }).catch(error => res.status(400).send(error.message));
+}
+
+function deleteBoardMobile(req, res) {
+  const curuserID = req.body.user.userID;
+  console.log("id", req.body.boardID);
+  return Board.findOne({
+    where: {
+      boardID: req.body.boardID
     }
   }).then(board => {
     if (!board) {

@@ -93,7 +93,8 @@ function updateUserInfo(req, res) {
     }
 
     return user.update({
-      userID: req.body.userID || user.userID //add here
+      firstName: req.body.firstName,
+      lastName: req.body.lastName //add here
 
     }).then(() => res.status(200).send(user)).catch(error => res.status(400).send(error));
   }).catch(error => res.status(400).send(error));
